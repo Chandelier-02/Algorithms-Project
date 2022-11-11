@@ -137,7 +137,28 @@ public class App {
                     Algorithm1(randomValuesArrayIn[row]);
                 }
                 t1 = System.nanoTime() - t1;
-                matrix[row][column] = (int) t1 / 100; 
+                matrix[row][0] = (int) t1 / 100; 
+
+                long t2 = System.nanoTime();
+                for (int j = 0; j < N; j++) {
+                    Algorithm2(randomValuesArrayIn[row]);
+                }
+                t2 = System.nanoTime() - t2;
+                matrix[row][1] = (int) t2 / 100;
+
+                long t3 = System.nanoTime();
+                for (int j = 0; j < N; j++) {
+                    MaxSum(randomValuesArrayIn[row], 0, randomValuesArrayIn[row].length - 1);
+                }
+                t3 = System.nanoTime() - t3;
+                matrix[row][2] = (int) t3 / 100;
+
+                long t4 = System.nanoTime();
+                for (int j = 0; j < N; j++) {
+                    Algorithm4(randomValuesArrayIn[row]);
+                }
+                t4 = System.nanoTime() - t4;
+                matrix[row][3] = (int) t4 / 100;
             }
         }
         return matrix;
