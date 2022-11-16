@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
@@ -19,9 +21,10 @@ public class App {
         }
         System.out.println("");
 
-        for (int[] i : generateMatrix(generateArrays())) {
-            System.out.println(Arrays.toString(i));
-        }
+        // for (int[] i : generateMatrix(generateArrays())) {
+        //     System.out.println(Arrays.toString(i));
+        // }
+        printToFile(generateMatrix(generateArrays()));
     }
 
     private static int[] readFromFile() {
@@ -33,7 +36,7 @@ public class App {
             for (int i = 0; i < strValues.length; i++) {
                 intFromFile[i] = Integer.parseInt(strValues[i]);
             }
-
+            in.close();
             return intFromFile;
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +45,25 @@ public class App {
     }
 
     private static void printToFile(int[][] matrixIn) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("lib/ChandlerDykes_phw_output.txt"))) {
+            String str = "Algorithm-1,Algorithm-2,Algorithm-3,Algorithm-4,T1(n),T2(n),T3(n),T4(n)";
+            out.write(str);
 
+            for (int row = 0; row < 19; row++) {
+                out.append("\n");
+                for (int column = 0; column < 8; column++) {
+                    str = Integer.toString(matrixIn[row][column]);
+                    out.append(str);
+
+                    if (column != 7) {
+                        out.append(",");
+                    }
+                }
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static int max(int v1, int v2) {
