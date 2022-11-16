@@ -41,29 +41,45 @@ public class App {
         return new int[]{};
     }
 
+    private static void printToFile(int[][] matrixIn) {
+
+    }
+
+    private static int max(int v1, int v2) {
+        return Math.max(v1, v2);
+    }
+    
+    private static int max(int v1, int v2, int v3) {
+        return Math.max(v1, (Math.max(v2, v3)));
+    }
+
     private static int Algorithm1(int[] X) {
+        int P = 0;
+        int Q = X.length - 1;
         int maxSoFar = 0;
-        for (int L = 0; L < X.length; L++) {
-            for (int U = L; U < X.length; U++) {
+        for (int L = P; L <= Q; L++) {
+            for (int U = L; U <= Q; U++) {
                 int sum = 0;
                 for (int I = L; I < U; I++) {
                     sum += X[I];
                     /* sum now contains the sum of X[L..U] */
                 }
-                maxSoFar = Math.max(maxSoFar, sum);
+                maxSoFar = max(maxSoFar, sum);
             }
         }
         return maxSoFar;
     }
 
     private static int Algorithm2(int[] X) {
+        int P = 0;
+        int Q = X.length - 1;
         int maxSoFar = 0;
-        for (int L = 0; L < X.length; L++) {
-            for (int U = L; U < X.length; U++) {
-                int sum = 0;
+        for (int L = P; L <= Q; L++) {
+            int sum = 0;
+            for (int U = L; U <= Q; U++) {
                 sum += X[U];
                 /* sum now contains the sum of X[L..U] */
-                maxSoFar = Math.max(maxSoFar, sum);
+                maxSoFar = max(maxSoFar, sum);
             }
         }
         return maxSoFar;
@@ -79,15 +95,15 @@ public class App {
         int maxToLeft = 0;
         for (int I = M; I >= L; I--) {
             sum += X[I];
-            maxToLeft = Math.max(maxToLeft, sum);
+            maxToLeft = max(maxToLeft, sum);
         }
 
         /* Find max crossing to right */
         sum = 0;
         int maxToRight = 0;
-        for (int I = M + 1; I < U; I++) {
+        for (int I = M + 1; I <= U; I++) {
             sum += X[I];
-            maxToLeft = Math.max(maxToRight, sum);
+            maxToRight = max(maxToRight, sum);
         }
 
         int maxCrossing = maxToLeft + maxToRight;
@@ -95,15 +111,17 @@ public class App {
         int maxInA = MaxSum(X, L, M);
         int mazInB = MaxSum(X, M + 1, U);
 
-        return Math.max(maxCrossing, Math.max(maxInA, mazInB));
+        return max(maxCrossing, maxInA, mazInB);
     }
 
     private static int Algorithm4(int[] X) {
+        int P = 0;
+        int Q = X.length - 1;
         int maxSoFar = 0;
         int maxEndingHere = 0;
-        for (int I = 0; I < X.length; I++) {
-            maxEndingHere = Math.max(0, maxEndingHere + X[I]);
-            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        for (int I = P; I <= Q; I++) {
+            maxEndingHere = max(0, maxEndingHere + X[I]);
+            maxSoFar = max(maxSoFar, maxEndingHere);
         }
         return maxSoFar;
     }
@@ -130,37 +148,47 @@ public class App {
         int[][] matrix = new int[19][8];
         int N = 1000;
         
-        for (int column = 0; column < 4; column++) {
-            for (int row = 0; row < 19; row++) {
-                long t1 = System.nanoTime();
-                for (int j = 0; j < N; j++) {
-                    Algorithm1(randomValuesArrayIn[row]);
-                }
-                t1 = System.nanoTime() - t1;
-                matrix[row][0] = (int) t1 / 100; 
+        for (int row = 0; row < 19; row++) {
+            int t1 = 0;
+            int t2 = 0;
+            int t3 = 0;
+            int t4 = 0;
+            for (int j = 0; j < N; j++) {
+                long t1_start = System.nanoTime();
+                Algorithm1(randomValuesArrayIn[row]);
+                long t1_end = System.nanoTime();
+                t1 += t1_end - t1_start;
 
-                long t2 = System.nanoTime();
-                for (int j = 0; j < N; j++) {
-                    Algorithm2(randomValuesArrayIn[row]);
-                }
-                t2 = System.nanoTime() - t2;
-                matrix[row][1] = (int) t2 / 100;
-
-                long t3 = System.nanoTime();
-                for (int j = 0; j < N; j++) {
-                    MaxSum(randomValuesArrayIn[row], 0, randomValuesArrayIn[row].length - 1);
-                }
-                t3 = System.nanoTime() - t3;
-                matrix[row][2] = (int) t3 / 100;
-
-                long t4 = System.nanoTime();
-                for (int j = 0; j < N; j++) {
-                    Algorithm4(randomValuesArrayIn[row]);
-                }
-                t4 = System.nanoTime() - t4;
-                matrix[row][3] = (int) t4 / 100;
+                long t2_start = System.nanoTime();
+                Algorithm2(randomValuesArrayIn[row]);
+                long t2_end = System.nanoTime();
+                t2 += t2_end - t2_start;
+                
+                long t3_start = System.nanoTime();
+                MaxSum(randomValuesArrayIn[row], 0, randomValuesArrayIn[row].length - 1);
+                long t3_end = System.nanoTime();
+                t3 += t3_end - t3_start;
+                
+                long t4_start = System.nanoTime();
+                Algorithm4(randomValuesArrayIn[row]);
+                long t4_end = System.nanoTime();
+                t4 += t4_end - t4_start;
             }
+            matrix[row][0] = (int) t1 / N; 
+            matrix[row][1] = (int) t2 / N;
+            matrix[row][2] = (int) t3 / N;
+            matrix[row][3] = (int) t4 / N;
         }
+
+        int n = 10;
+        for (int row = 0; row < 19; row++) {
+            matrix[row][4] = (int) Math.ceil(6 + (7/6) * Math.pow(n, 3) + 7 * Math.pow(n, 2) + (41/6) * n);
+            matrix[row][5] = (int) Math.ceil(6 * Math.pow(n, 2) + 8 * n + 5);
+            matrix[row][6] = (int) Math.ceil(12 * (Math.pow(n, 2) + 37 * n - 38));
+            matrix[row][7] = (int) Math.ceil(14 * n + 5);
+            n += 5;
+        }
+
         return matrix;
     }
 }
