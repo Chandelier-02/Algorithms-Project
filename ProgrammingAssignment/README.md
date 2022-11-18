@@ -1,18 +1,24 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Names: Chandler Dykes, Sebastian Alger
+Files Included: bin/App.class
+                lib/ChandlerDykesSebastianAlger_phw_output.txt
+                lib/phw_input.txt
+                src/App.java
+                ProgrammingAssignmentTakeaways.pdf
+                README.md
 
-## Folder Structure
+You can run the program using vscode and its java extension pack. Simply click the run button in the src/App.java file to run the program. It will use input from lib/phw_input.txt. It will then output all values generated into 
+lib/ChandlerDykesSebastianAlger_phw_output.txt. 
 
-The workspace contains two folders by default, where:
+Resources used:
+https://www.geeksforgeeks.org/java-io-bufferedreader-class-java/ - used their BufferedReader implementation for guidance on how to write our own so we could read input from lib/phw_input.txt.
+https://www.programiz.com/java-programming/bufferedwriter - used their BufferedWriter examples for guidance on how to write values to a file. 
+https://stackoverflow.com/questions/27976857/how-do-i-get-a-random-number-with-a-negative-number-in-range - used this StackOverflow question for guidance on how to create random values that could also be negative in Java.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Statements of certification:
+Chandler: I certify that I wrote the code I am submitting. I did not copy whole or parts of it from another student or
+          have another person write the code for me. Any code I am reusing in my program is clearly marked as such
+          with its source clearly identified in comments.
+Sebastian: I certify that I wrote the code I am submitting. I did not copy whole or parts of it from another student or
+          have another person write the code for me. Any code I am reusing in my program is clearly marked as such
+          with its source clearly identified in comments.
