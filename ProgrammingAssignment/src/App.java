@@ -3,7 +3,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -81,7 +80,7 @@ public class App {
         for (int L = P; L <= Q; L++) {
             for (int U = L; U <= Q; U++) {
                 int sum = 0;
-                for (int I = L; I < U; I++) {
+                for (int I = L; I <= U; I++) {
                     sum += X[I];
                     /* sum now contains the sum of X[L..U] */
                 }
@@ -203,10 +202,10 @@ public class App {
 
         int n = 10;
         for (int row = 0; row < 19; row++) {
-            matrix[row][4] = (int) Math.ceil(6 + (7/6) * Math.pow(n, 3) + 7 * Math.pow(n, 2) + (41/6) * n);
+            matrix[row][4] = (int) Math.ceil(6 + (7/6) * Math.pow(n, 3) + (45/6) * Math.pow(n, 2) + (44/6) * n);
             matrix[row][5] = (int) Math.ceil(6 * Math.pow(n, 2) + 8 * n + 5);
-            matrix[row][6] = (int) Math.ceil(12 * (Math.pow(n, 2) + 37 * n - 38));
-            matrix[row][7] = (int) Math.ceil(14 * n + 5);
+            matrix[row][6] = (int) Math.ceil(14 * n * (Math.log(n) / Math.log(2)) + 14 * n);
+            matrix[row][7] = (int) Math.ceil(18 * n + 5);
             n += 5;
         }
 
